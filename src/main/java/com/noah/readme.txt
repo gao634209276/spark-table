@@ -7,18 +7,11 @@ $.ajax({
             },
             success: function (result) {
                 viewModel.dataList.removeAll();
-                if (result.error == 1 || result == "") {
-                    $("#pageP").hide();
-                    $('#querybtn').removeAttr("disabled");
-//                        alert(result.errordetail);
-                    alert("暂无 数据");
-                } else {
+
                     for (var i = 0; i < result.listPage.length; i++) {
                         viewModel.dataList.push(result.listPage[i]);
                     }
-                    $('#querybtn').removeAttr("disabled");
-                    $("#tablesize").val(result.tablesize);
-//                        sethighlight();
+
                 }
             }
         });
@@ -29,3 +22,9 @@ curl -H "Accept: application/json;charset=utf-8" -d "id=1" localhost:8080/main/t
 
 curl -l -H "Content-type: application/json" -X POST -d '{"phone":"13521389587","password":"test"}' localhost:8080/main/test/hello
 curl -H "Accept: application/json;charset=utf-8" -XPOST  localhost:8080/main/test/hellotest  -d "id=1"
+
+http://blog.csdn.net/heting90/article/details/52248729
+http://www.cnblogs.com/huanzei/category/759362.html
+http://blog.csdn.net/lipingrong01/article/details/51316385
+http://www.cnblogs.com/gamehiboy/p/5176618.html
+http://www.cnblogs.com/yanglang/p/6697657.html
