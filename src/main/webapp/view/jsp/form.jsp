@@ -14,11 +14,8 @@
     <link rel="stylesheet" href="assets/bootstrap-table.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>BootStrap Table使用</title>
-    @*1、Jquery组件引用*@
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    @*2、bootstrap组件引用*@
     <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    @*3、bootstrap table组件以及中文包的引用*@
     <script src="assets/bootstrap-table.js"></script>
     <script src="assets/bootstrap-table-zh-CN.js"></script>
 </head>

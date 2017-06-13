@@ -24,11 +24,12 @@ public class TestController {
 	@ResponseBody
 	public Object test() {
 		String sqlStr = "select * from boot t";
-		List<Map<String, Object>> list = jdbcTemplate.queryForList(sqlStr);
+		/*List<Map<String, Object>> list = jdbcTemplate.queryForList(sqlStr);
 		JSONArray jsonArray = JSONArray.fromObject(list);
 		System.out.println(jsonArray.toString());
 
-		return list;
+		return list;*/
+		return null;
 	}
 	//这里是实现单条数据删除功能
 	@RequestMapping(value = "/remove")
@@ -37,8 +38,8 @@ public class TestController {
 		String sqlStr = "delete  from boot t where t.N_ID = ?";
 		int log1 = 0;
 		try {
-			log1 = jdbcTemplate.update(sqlStr, id);
-			System.out.println("log - " + log);
+			/*log1 = jdbcTemplate.update(sqlStr, id);
+			System.out.println("log - " + log);*/
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -55,8 +56,8 @@ public class TestController {
 		try {
 			if (null == id) {
 			} else {
-				list = jdbcTemplate.queryForMap(sqlStr, id);
-				mv.addObject("map", list);
+			/*	list = jdbcTemplate.queryForMap(sqlStr, id);
+				mv.addObject("map", list);*/
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -64,7 +65,7 @@ public class TestController {
 		return mv;
 	}
 	//提交编辑的数据以及提交录入的数据
-	@RequestMapping(value = "/edited")
+	/*@RequestMapping(value = "/edited")
 	@ResponseBody
 	public Object edited(final Info info, HttpServletRequest request) {//Request Object use @RequestBody, not @RequestParam
 		info.toString();
@@ -99,5 +100,5 @@ public class TestController {
 			ex.printStackTrace();
 		}
 		return mv;
-	}
+	}*/
 }
