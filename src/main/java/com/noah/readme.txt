@@ -23,25 +23,21 @@ curl -H "Accept: application/json;charset=utf-8" -d "id=1" localhost:8080/ajax/a
 curl -l -H "Content-type: application/json" -X POST -d '{"phone":"13521389587","password":"test"}' localhost:8080/main/test/hello
 curl -H "Accept: application/json;charset=utf-8" -XPOST  localhost:8080/main/test/hellotest  -d "id=1"
 
-curl -XPOST  localhost:8080/ajax/getUser  -d '
-{user:"zhangsan",
-username:"zs",
-email:"zhangsan@qq.com",
-phone:1234545,
-sex:"男"
-}'
-curl -XPOST  localhost:8080/ajax/getUser -d '{"email": "39385908@qq.com",
-"name": "邓某某",
-"password": "",
-"phone": "12345678911",
-"rolename": "平台管理员",
-"sex": "男",
-"username": "admin"
-}'
-
 curl -XPOST  localhost:8080/ajax/bodyTest -d '{"id":1,"name":"jin","sex":"man","address":"moerben","age":"12","phone":"110"}'
 
 curl -XPOST  localhost:8080/ajax/bodyTest -d {"username":"zhangsan","name":"jin","sex":"man","email":"moerben@qq.com","age":"12","phone":"110"}
+
+{"username":"zhangsan","name":"jin","sex":"man","email":"moerben@qq.com","age":"12","phone":"110"}
+
+
+
+curl -H "Content-type: application/json;charset=utf-8" -X POST localhost:8080/ajax/getUser -d '{"username":"zhangsan","name":"jin","sex":"man","email":"moerben@qq.com","age":"12","phone":"110"}'
+
+
+
+
+
+
 http://blog.csdn.net/heting90/article/details/52248729
 http://www.cnblogs.com/huanzei/category/759362.html
 http://blog.csdn.net/lipingrong01/article/details/51316385

@@ -1,104 +1,129 @@
 package com.noah.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.noah.entry.User;
+import com.noah.service.TestServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * http://www.cnblogs.com/huanzei/p/4990922.html
- * Created by Noah on 2017/6/12.
- */
+
+@Controller
+@RequestMapping("/test") // url:/模块/资源/{id}/细分
 public class TestController {
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	//这里是拉取数据列表
-	@RequestMapping(value = "/getJson")
-	@ResponseBody
-	public Object test() {
-		String sqlStr = "select * from boot t";
-		/*List<Map<String, Object>> list = jdbcTemplate.queryForList(sqlStr);
-		JSONArray jsonArray = JSONArray.fromObject(list);
-		System.out.println(jsonArray.toString());
 
-		return list;*/
-		return null;
-	}
-	//这里是实现单条数据删除功能
-	@RequestMapping(value = "/remove")
+	@Autowired
+	TestServiceImpl testServiceImpl;
+
+	@RequestMapping("/bodyTest")
 	@ResponseBody
-	public Object remove(@RequestParam String id) {
-		String sqlStr = "delete  from boot t where t.N_ID = ?";
-		int log1 = 0;
-		try {
-			/*log1 = jdbcTemplate.update(sqlStr, id);
-			System.out.println("log - " + log);*/
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return log1;
+	public User testBody(@RequestBody User user) {
+		return user;
 	}
 
-	//这里是拉取编辑需要的显示数据
-	@RequestMapping(value = "/edit")
+
+	@RequestMapping(
+			value = "/getUser2",
+			method = {RequestMethod.POST},
+			produces = {"application/json;charset=utf-8"})
 	@ResponseBody
-	public Object edit(@RequestParam String id) {
-		ModelAndView mv = new ModelAndView("/system/workSync/edit.jsp");
-		String sqlStr = "select *  from boot t where t.N_ID = ?";
-		Map<String, Object> list = null;
-		try {
-			if (null == id) {
-			} else {
-			/*	list = jdbcTemplate.queryForMap(sqlStr, id);
-				mv.addObject("map", list);*/
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
+	//前端传过来的参数是json格式的，所以用@RequestBody注解后我们就能将前端传过来的参数取出来。
+	private String getUser2(String user, String username, String email, String phone, String sex) {
+		/*int pageSize = jsonBody.getIntValue("pageSize");
+		int offset = jsonBody.getIntValue("offset");*/
+		User u = new User();
+		u.setName(user);
+		u.setUsername(username);
+		u.setEmail(email);
+		if (null == phone) {
+			u.setPhone(0);
+		} else {
+			u.setPhone(Integer.valueOf(phone));
 		}
-		return mv;
+		u.setSex(sex);
+
+		List<User> userList = new ArrayList<User>();
+		userList.add(u);
+		HashMap<String, Object> userMap = new HashMap<>();
+		userMap.put("total", 1);
+		userMap.put("rows", userList);
+		//JSON.toJSONStringWithDateFormat(userMap, "yyyyMMdd");
+		String json = JSON.toJSONString(userMap);
+		logger.info(json);
+		return json;
 	}
-	//提交编辑的数据以及提交录入的数据
-	/*@RequestMapping(value = "/edited")
+
+
+	@RequestMapping(value = "/getUser", method = {RequestMethod.POST}, produces = {"application/json;charset=utf-8"})
 	@ResponseBody
-	public Object edited(final Info info, HttpServletRequest request) {//Request Object use @RequestBody, not @RequestParam
-		info.toString();
+	//前端传过来的参数是json格式的，所以用@RequestBody注解后我们就能将前端传过来的参数取出来。
+	private String getUser(@RequestBody JSONObject jsonBody) {
+		/*int pageSize = jsonBody.getIntValue("pageSize");
+		int offset = jsonBody.getIntValue("offset");*/
+		User user = new User();
+		user.setName(jsonBody.getString("user"));
+		user.setUsername(jsonBody.getString("username"));
+		user.setEmail(jsonBody.getString("email"));
+		user.setPhone(jsonBody.getIntValue("phone"));
+		user.setSex(jsonBody.getString("sex"));
 
-		String id = info.getId();
-		String sqlStr = "update boot t set t.VC_NAME=?,VC_LIKE=?,VC_NOTE=?  where t.N_ID = ?";
-		if (null == id || id.equals("")) {
-			id = String.valueOf(System.currentTimeMillis());
-			sqlStr = "INSERT INTO BOOT(VC_NAME,VC_LIKE,VC_NOTE,N_ID) VALUES (?,?,?,?)";
-		}
-		final String vcId = id;
-		ModelAndView mv = new ModelAndView("/system/workSync/bootstrap-table.jsp");
-		int logStr = 0;
-		String logString = "";
-		try {
-			logStr = jdbcTemplate.update(sqlStr, new PreparedStatementSetter() {
-				@Override
-				public void setValues(PreparedStatement ps) throws SQLException {
-					ps.setString(1, info.getName());
-					ps.setString(2, info.getLike());
-					ps.setString(3, info.getNote());
-					ps.setString(4, vcId);
-				}
-			});
-			if (logStr != 0)
-				logString = "Edit Success.";
-			else
-				logString = "Edit Error.";
+		List<User> userList = new ArrayList<User>();
+		userList.add(user);
+		HashMap<String, Object> userMap = new HashMap<>();
+		userMap.put("total", 1);
+		userMap.put("rows", userList);
+		//JSON.toJSONStringWithDateFormat(userMap, "yyyyMMdd");
+		String json = JSON.toJSONString(userMap);
+		logger.info(json);
+		return json;
+	}
 
-			mv.addObject("logStr", logString);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return mv;
-	}*/
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	private String list(Model model) {
+		//model.addAttribute("list", list);
+		// list.jsp + model = ModelAndView
+		return "list";// WEB-INF/jsp/"list".jsp
+	}
+
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	private String detail(@PathVariable("bookId") Long bookId, Model model) {
+		//return "redirect:/book/list";
+		//return "forward:/book/list";
+		//model.addAttribute("book", book);
+		return "detail";
+	}
+
+
+	//http://blog.csdn.net/kobejayandy/article/details/12690555
+	// ajax json
+	@RequestMapping(value = "/ajax/{testPath}",
+			method = RequestMethod.POST,
+			produces = {"application/json;charset=utf-8"}//仅处理request请求中Accept头中包含了"application/json"的请求，同时暗示了返回的内容类型为application/json
+			//consumes = {"application/json;charset=utf-8"},//仅处理request Content-Type为“application/json”类型的请求
+			//params = "myParam=myValue", //仅处理请求中包含了名为“myParam”，值为“myValue”的请求
+			//headers = "Referer=http://www.ifeng.com/", // 仅处理request的header中包含了指定“Refer”请求头和对应值为“http://www.ifeng.com/”的请求
+	)
+	@ResponseBody
+	//@DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
+	private Object testAjax(@PathVariable("testPath") String path, @RequestParam("id") Long id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("success", 0);
+		map.put("path", path);
+		map.put("id", id);
+		String json = JSON.toJSONString(map);
+		logger.info(json);
+		return json;
+	}
 }
