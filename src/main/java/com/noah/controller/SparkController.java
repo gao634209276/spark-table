@@ -2,7 +2,8 @@ package com.noah.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.noah.entry.User;
-import com.noah.service.SparkServiceImpl;
+import com.noah.entry.Wapdetail;
+import com.noah.service.SparkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +20,7 @@ import java.util.List;
 @Controller
 public class SparkController {
 	@Autowired
-	SparkServiceImpl sparkService;
-
+	SparkService sparkServiceImpl;
 
 	/**
 	 * t_codewapdetail
@@ -32,22 +32,14 @@ public class SparkController {
 	 * eventTime: $("#event_time").val
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/spark/user2")
-	public List<User> get2(@RequestBody JSONObject obj) {
+	@RequestMapping(value = "/spark/data")
+	public List<Wapdetail> getData(@RequestBody JSONObject json) {
 		List<User> list = new ArrayList<>();
-
 		// 判断必选项
-		if (obj.getString("") == null) {
+		/*if (json.getString("") == null) {
 			return null;
-		}
-
-		String eventType = obj.getString("eventType");
-		String stateType = obj.getString("stateType");
-		String province = obj.getString("province");
-		String channel = obj.getString("channel");
-		String recommendTime = obj.getString("recommendTime");
-		String eventTime = obj.getString("eventTime");
-		return null;
+		}*/
+		return sparkServiceImpl.query(json);
 	}
 
 }

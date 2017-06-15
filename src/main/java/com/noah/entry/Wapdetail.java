@@ -6,52 +6,52 @@ package com.noah.entry;
  */
 public class Wapdetail {
 
-	private String province;
-	private String channel;
-	private String recommendTime;
-	private String eventTime;
-	private String eventType;
+	private String provinceId;
+	private String appFrom;
+	private String tuijianTime;
+	private String activeTime;
+	private String activeType;
 	private String stateType;
-	private String mobile;
+	private String userMobile;
 
-	public String getProvince() {
-		return province;
+	public String getProvinceId() {
+		return provinceId;
 	}
 
-	public void setProvince(String province) {
-		this.province = province;
+	public void setProvinceId(String provinceId) {
+		this.provinceId = provinceId;
 	}
 
-	public String getChannel() {
-		return channel;
+	public String getAppFrom() {
+		return appFrom;
 	}
 
-	public void setChannel(String channel) {
-		this.channel = channel;
+	public void setAppFrom(String appFrom) {
+		this.appFrom = appFrom;
 	}
 
-	public String getRecommendTime() {
-		return recommendTime;
+	public String getTuijianTime() {
+		return tuijianTime;
 	}
 
-	public void setRecommendTime(String recommendTime) {
-		this.recommendTime = recommendTime;
+	public void setTuijianTime(String tuijianTime) {
+		this.tuijianTime = tuijianTime;
 	}
 
-	public String getEventTime() {
-		return eventTime;
+	public String getActiveTime() {
+		return activeTime;
 	}
 
-	public void setEventTime(String eventTime) {
-		this.eventTime = eventTime;
+	public void setActiveTime(String activeTime) {
+		this.activeTime = activeTime;
 	}
 
-	public String getEventType() {
-		return eventType;
+	public String getActiveType() {
+		return activeType;
 	}
 
-	public void setEventType(String eventType) {
-		this.eventType = eventType;
+	public void setActiveType(String activeType) {
+		this.activeType = activeType;
 	}
 
 	public String getStateType() {
@@ -62,12 +62,12 @@ public class Wapdetail {
 		this.stateType = stateType;
 	}
 
-	public String getMobile() {
-		return mobile;
+	public String getUserMobile() {
+		return userMobile;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public void setUserMobile(String userMobile) {
+		this.userMobile = userMobile;
 	}
 
 }

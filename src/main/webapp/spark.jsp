@@ -65,14 +65,14 @@
 					</div>
 					<div class="form-group" style="margin-top:15px">
 
-						<label for="province" class="control-label col-sm-1">省份</label>
+						<label for="provinceId" class="control-label col-sm-1">省份</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" id="province">
+							<input type="text" class="form-control" id="provinceId">
 						</div>
 
-						<label for="channel" class="control-label col-sm-1">渠道</label>
+						<label for="appFrom" class="control-label col-sm-1">渠道</label>
 						<div class="col-sm-3">
-							<select class="form-control" id="channel">
+							<select class="form-control" id="appFrom">
 								<option value="">---请选择---</option>
 								<option value="码上购">码上购</option>
 								<option value="其他">其他</option>
@@ -95,16 +95,17 @@
 							       onFocus="WdatePicker({startDate:'%y-%M-%D %H:00:00',dateFmt:'yyyy-MM-dd HH:00:00',alwaysUseStartDate:true})"/>
 						</div>
 						<div class="col-sm-4" style="text-align:right;">
-							<button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">
+							<button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary"
+							        onclick="getUser()">
 								查询
 							</button>
 						</div>
 					</div>
 
 					<div class="form-group" style="margin-top:15px">
-						<%--<label for="mobile" class="control-label col-sm-1">手机号</label>
+						<%--<label for="userMobile" class="control-label col-sm-1">手机号</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" id="mobile">
+							<input type="text" class="form-control" id="userMobile">
 						</div>--%>
 					</div>
 				</form>
@@ -123,32 +124,33 @@
 			 pageSize: params.limit,
 			 order: params.order,
 			 ordername: params.sort,*/
-			eventType: $("#event_type").val(),
+			activeType: $("#event_type").val(),
 			stateType: $("#state_type").val(),
-			province: $("#province").val,
-			channel: $("#channel").val,
-			recommendTime: $("#recommend_time").val,
-			eventTime: $("#event_time").val
+			provinceId: $("#provinceId").val,
+			appFrom: $("#appFrom").val,
+			tuijianTime: $("#recommend_time").val,
+			activeTime: $("#event_time").val
 		};
 		return param;
 	}
 
 
+	//定义BootStrap表格属性 参考配置 http://bootstrap-table.wenzhixin.net.cn/documentation/
 	$('#table').bootstrapTable({
 		//url: '/json/user3',
-		url: 'json/user2',
+		url: 'spark/data',
 		method: "post",
 		contextType: "application/x-www-form-urlencoded",
 		// contentType : "application/json;charset=utf-8",
 		queryParams: queryParams,
 		columns: [
-			{field: 'mobile', title: 'mobile'},
-			{field: 'eventType', title: 'eventType'},
+			{field: 'userMobile', title: 'userMobile'},
+			{field: 'activeType', title: 'activeType'},
 			{field: 'stateType', title: 'stateType'},
-			{field: 'province', title: 'province'},
-			{field: 'channel', title: 'channel'},
-			{field: 'recommendTime', title: 'recommendTime'},
-			{field: 'eventTime', title: 'eventTime'},
+			{field: 'provinceId', title: 'provinceId'},
+			{field: 'appFrom', title: 'appFrom'},
+			{field: 'tuijianTime', title: 'tuijianTime'},
+			{field: 'activeTime', title: 'activeTime'}
 		],
 		toolbar: '#toobar',
 		showRefresh: true,

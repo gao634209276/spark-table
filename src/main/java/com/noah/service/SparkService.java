@@ -1,5 +1,10 @@
 package com.noah.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.noah.entry.Wapdetail;
+
+import java.util.List;
+
 /**
  * SparkService
  *
@@ -8,4 +13,5 @@ package com.noah.service;
 public interface SparkService {
 
 
+	List<Wapdetail> query(JSONObject json);
 }
